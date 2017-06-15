@@ -109,7 +109,7 @@ class Protein_Dataset:
         # Dataset preparation
         splited = list(map(self.split_pair_seq, data))
 
-        prep_data = data
+        prep_data = []
 
         for seq in splited:
             prep_data.extend(seq)
