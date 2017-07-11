@@ -6,27 +6,27 @@ class Protein_Dataset:
     """
     API for Protein dataset. Plus training utilities.
     """
-    def __init__(self, train_path, test_path, maxlen=400, stride=100):
+    def __init__(self, data_path, maxlen=400, stride=100):
         """
         train_path: path to training folder
         test_path: path to testing folder
         maxlen: length to which all sequnces will be padded to
         stride: number of seq elements that will be taken into last batch from previous one
         """
-        self.train = self._load_data(train_path)
-        self.test = self._load_data(test_path)
+        self.train = self._load_data(os.path.join(data_path, "train"))
+        self.test = self._load_data(os.path.join(data_path, "test"))
         
-        if os.path.isfile('acid.npz.npy'):
-            self.acid_table = list(np.load('acid.npz.npy'))
+        if os.path.isfile(os.path.join(data_path, 'acid.npy')):
+            self.acid_table = list(np.load(os.path.join(data_path, 'acid.npy')))
         else:
             self.acid_table = list(np.unique(list("".join(self.train[:,0]))))
-            np.save("acid.npz", acid_table)
+            np.save(os.path.join(data_path, 'acid'), acid_table)
             
-        if os.path.isfile('class.npz.npy'):
-            self.class_table = list(np.load('class.npz.npy'))
+        if os.path.isfile(os.path.join(data_path, 'class.npy')):
+            self.class_table = list(np.load(os.path.join(data_path, 'class.npy')))
         else:
             self.class_table = list(np.unique(list("".join(self.train[:,1]))))
-            np.save("class.npz", class_table)
+            np.save(os.path.join(data_path, 'class'), class_table)
         
         self.train = self._translate_data(self.train)
         self.test = self._translate_data(self.test)
