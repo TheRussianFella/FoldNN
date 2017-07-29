@@ -1,5 +1,6 @@
-# prot-pred
+# FoldNN
 Simple system to predict secondary structure of proteins 
+
 # Current state
 Right now I have a trained model, that can 
 predict 3 classes of folding 
